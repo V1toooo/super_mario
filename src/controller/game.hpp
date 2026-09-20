@@ -27,7 +27,7 @@ namespace biv {
 			
 		public:
 			Game();
-			
+
 			void add_collisionable(Collisionable*);
 			void add_map_movable(MapMovable*);
 			void add_mario(Mario*);
