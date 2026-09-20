@@ -4,6 +4,7 @@ target_sources(${PROJECT_NAME}
 		console_enemy.cpp
 		console_flying_enemy.cpp
 		console_jumping_enemy.cpp
+		console_floating_platform.cpp
 		console_full_box.cpp
 		console_mario.cpp
 		console_money.cpp
