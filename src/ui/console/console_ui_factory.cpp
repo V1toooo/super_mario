@@ -13,6 +13,7 @@ void ConsoleUIFactory::clear_data() {
 	full_boxes.clear();
 	ships.clear();
 	enemies.clear();
+	flying_enemies.clear();
 	moneys.clear();
 }
 
@@ -37,10 +38,29 @@ void ConsoleUIFactory::create_enemy(
 	game_map->add_obj(enemy);
 }
 
+void ConsoleUIFactory::create_flying_enemy(
+	const Coord& top_left,
+	const int width,
+	const int height
+) {
+	ConsoleFlyingEnemy* enemy =
+		new ConsoleFlyingEnemy(top_left, width, height);
+
+	flying_enemies.push_back(enemy);
+
+	game->add_map_movable(enemy);
+	game->add_movable(enemy);
+	game->add_collisionable(enemy);
+
+	game_map->add_obj(enemy);
+}
+
 void ConsoleUIFactory::create_full_box(
 	const Coord& top_left, const int width, const int height
 ) {
-	ConsoleFullBox* full_box = new ConsoleFullBox(top_left, width, height, this);
+	ConsoleFullBox* full_box =
+		new ConsoleFullBox(top_left, width, height, this);
+
 	full_boxes.push_back(full_box);
 	game->add_collisionable(full_box);
 	game->add_map_movable(full_box);
@@ -55,10 +75,12 @@ void ConsoleUIFactory::create_mario(
 	game->remove_movable(mario);
 	game->remove_mario();
 	game_map->remove_obj(mario);
+
 	delete mario;
 	mario = nullptr;
-	
+
 	mario = new ConsoleMario(top_left, width, height);
+
 	game->add_collisionable(mario);
 	game->add_movable(mario);
 	game->add_mario(mario);
@@ -69,6 +91,7 @@ void ConsoleUIFactory::create_money(
 	const Coord& top_left, const int width, const int height
 ) {
 	ConsoleMoney* money = new ConsoleMoney(top_left, width, height);
+
 	moneys.push_back(money);
 	game->add_map_movable(money);
 	game->add_movable(money);
@@ -80,16 +103,20 @@ void ConsoleUIFactory::create_ship(
 	const Coord& top_left, const int width, const int height
 ) {
 	ConsoleShip* ship = new ConsoleShip(top_left, width, height);
+
 	ships.push_back(ship);
 	game->add_map_movable(ship);
 	game->add_static_obj(ship);
 	game_map->add_obj(ship);
 }
 
-biv::GameMap* ConsoleUIFactory::get_game_map(const int height, const int width) {
+biv::GameMap* ConsoleUIFactory::get_game_map(
+	const int height, const int width
+) {
 	if (game_map == nullptr) {
 		game_map = new ConsoleGameMap(height, width);
 	}
+
 	return game_map;
 }
 
