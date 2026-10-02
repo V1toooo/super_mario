@@ -79,7 +79,7 @@ void ConsoleUIFactory::create_floating_platform(
 	const int height
 ) {
 	ConsoleFloatingPlatform* platform =
-		new ConsoleFloatingPlatform(top_left, width, height, mario);
+		new ConsoleFloatingPlatform(top_left, width, height);
 
 	floating_platforms.push_back(platform);
 
@@ -87,6 +87,7 @@ void ConsoleUIFactory::create_floating_platform(
 	game->add_movable(platform);
 	game->add_static_obj(platform);
 	game->add_collisionable(platform);
+	game->add_moving_collisionable(platform);
 
 	game_map->add_obj(platform);
 }
@@ -109,6 +110,7 @@ void ConsoleUIFactory::create_mario(
 ) {
 	game->remove_collisionable(mario);
 	game->remove_movable(mario);
+	game->remove_moving_collisionable(mario);
 	game->remove_mario();
 	game_map->remove_obj(mario);
 
@@ -119,6 +121,7 @@ void ConsoleUIFactory::create_mario(
 
 	game->add_collisionable(mario);
 	game->add_movable(mario);
+	game->add_moving_collisionable(mario);
 	game->add_mario(mario);
 	game_map->add_obj(mario);
 }

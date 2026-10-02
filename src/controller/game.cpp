@@ -22,6 +22,10 @@ void Game::add_movable(Movable* obj) {
 	movable_objs.push_back(obj);
 }
 
+void Game::add_moving_collisionable(MovingCollisionable* obj) {
+	moving_collisionable_objs.push_back(obj);
+}
+
 void Game::add_static_obj(Rect* obj) {
 	static_objs.push_back(obj);
 }
@@ -103,9 +107,23 @@ void Game::move_map_right() noexcept {
 }
 
 void Game::move_objs_horizontally() noexcept {
-	for (Movable* obj: movable_objs) {
-		obj->move_horizontally();
-	}
+    for (Movable* obj : movable_objs) {
+        obj->move_horizontally();
+    }
+
+    for (MovingCollisionable* obj : moving_collisionable_objs) {
+        if (obj == mario) {
+            continue;
+        }
+
+        if (
+            mario->get_bottom() == obj->get_top() &&
+            mario->get_right() > obj->get_left() &&
+            mario->get_left() < obj->get_right()
+        ) {
+            mario->move_horizontal_offset(obj->get_hspeed());
+        }
+    }
 }
 
 void Game::move_objs_vertically() noexcept {
@@ -130,10 +148,15 @@ void Game::remove_movable(Movable* obj) {
 	remove_obj(movable_objs, obj);
 }
 
+void Game::remove_moving_collisionable(MovingCollisionable* obj) {
+	remove_obj(moving_collisionable_objs, obj);
+}
+
 void Game::remove_objs() {
 	collisionable_objs.clear();
 	map_movable_objs.clear();
 	movable_objs.clear();
+	moving_collisionable_objs.clear();
 	static_objs.clear();
 	remove_mario();
 }

@@ -2,7 +2,6 @@
 
 #include "console_ui_obj_rect_adapter.hpp"
 #include "floating_platform.hpp"
-#include "mario.hpp"
 
 namespace biv {
 	class ConsoleFloatingPlatform :
@@ -12,8 +11,7 @@ namespace biv {
 			ConsoleFloatingPlatform(
 				const Coord& top_left,
 				const int width,
-				const int height,
-				Mario* mario
+				const int height
 			);
 
 			char get_brush() const noexcept override;

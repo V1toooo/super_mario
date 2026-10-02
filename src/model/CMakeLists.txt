@@ -3,6 +3,7 @@ target_sources(${PROJECT_NAME}
 		collisionable.cpp
 		game_map.cpp
 		movable.cpp
+		moving_collisionable.cpp
 		rect.cpp
 		rect_map_movable_adapter.cpp
 )

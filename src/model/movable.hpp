@@ -22,6 +22,7 @@ namespace biv {
 
 		public:
 			float get_vspeed() const noexcept;
+			float get_hspeed() const noexcept;
 			void jump() noexcept;
 			void move_horizontal_offset(const float offset) noexcept;
 			void move_vertical_offset(const float offset) noexcept;
