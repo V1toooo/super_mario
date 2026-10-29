@@ -67,6 +67,22 @@ bool Game::check_static_collisions(Collisionable* obj) const noexcept {
 	return false;
 }
 
+void Game::check_moving_collisions() noexcept {
+    for (MovingCollisionable* obj : moving_collisionable_objs) {
+        if (obj == mario) {
+            continue;
+        }
+
+        if (
+            mario->get_bottom() == obj->get_top() &&
+            mario->get_right() > obj->get_left() &&
+            mario->get_left() < obj->get_right()
+        ) {
+            mario->move_horizontal_offset(obj->get_hspeed());
+        }
+    }
+}
+
 void Game::check_vertically_static_collisions() noexcept {
 	if (mario->has_collision(static_objs[static_objs.size() - 1])) {
 		is_level_end_ = true;
@@ -109,20 +125,6 @@ void Game::move_map_right() noexcept {
 void Game::move_objs_horizontally() noexcept {
     for (Movable* obj : movable_objs) {
         obj->move_horizontally();
-    }
-
-    for (MovingCollisionable* obj : moving_collisionable_objs) {
-        if (obj == mario) {
-            continue;
-        }
-
-        if (
-            mario->get_bottom() == obj->get_top() &&
-            mario->get_right() > obj->get_left() &&
-            mario->get_left() < obj->get_right()
-        ) {
-            mario->move_horizontal_offset(obj->get_hspeed());
-        }
     }
 }
 

@@ -104,6 +104,7 @@ int main() {
 
 		game.check_mario_collision();
 		game.check_vertically_static_collisions();
+		game.check_moving_collisions();
 		
 		if (
 			game_map->is_below_map(mario->get_top())
