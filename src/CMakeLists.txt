@@ -4,6 +4,9 @@ project(super_mario)
 
 SET(CMAKE_CXX_FLAGS "-finput-charset=utf-8 -fexec-charset=utf-8")
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 set(SOURCES main.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
@@ -21,4 +24,8 @@ if(GAME_TYPE STREQUAL "WindowsConsole")
 elseif(GAME_TYPE STREQUAL "LinuxConsole")
 	target_link_libraries(${PROJECT_NAME} ncurses pthread)
 	target_compile_definitions(${PROJECT_NAME} PRIVATE LINUX_CONSOLE)
+elseif(GAME_TYPE STREQUAL "Qt")
+	find_package(Qt6 REQUIRED COMPONENTS Widgets)
+	target_link_libraries(${PROJECT_NAME} Qt6::Widgets)
+	target_compile_definitions(${PROJECT_NAME} PRIVATE QT_GAME)
 endif()

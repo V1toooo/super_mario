@@ -54,6 +54,22 @@ void ConsoleGameMap::clear() noexcept {
 	}
 }
 
+char ConsoleGameMap::get_cell(const int x, const int y) const noexcept {
+	return map[y][x];
+}
+
+int ConsoleGameMap::get_height() const noexcept {
+	return height;
+}
+
+const std::vector<biv::ConsoleUIObject*>& ConsoleGameMap::get_objs() const noexcept {
+	return objs;
+}
+
+int ConsoleGameMap::get_width() const noexcept {
+	return width;
+}
+
 void ConsoleGameMap::refresh() noexcept {
 	clear();
 	
